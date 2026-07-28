@@ -6,12 +6,13 @@ import { Recipe } from '../../models/recipe.model';
 import { RecipeService } from '../services/recipe';
 import { DifficultyHighlightDirective } from '../directives/difficulty-highlight';
 import { Loader } from '../loader/loader';
+import { HoverZoomDirective } from '../directives/hover-zoom-button';
 
 
 @Component({
   selector: 'app-recipes',
   standalone: true,
-  imports: [DifficultyHighlightDirective, Loader],
+  imports: [DifficultyHighlightDirective, Loader,HoverZoomDirective],
   templateUrl: './recipes.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
