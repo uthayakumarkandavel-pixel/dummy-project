@@ -3,49 +3,43 @@
         <h1 class="text-4xl font-extrabold text-orange-700 text-center mb-8">
             Recipe Explorer
         </h1>
-        @if(loader()){<app-loader></app-loader>}
+        @if(loader())<app-loader></app-loader>
         @else{
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             @for (recipe of recipe(); track recipe.id) {
             <div
                 class="bg-amber-50 border border-orange-200 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-                <img [src]="recipe.image" [alt]="recipe.name" appImageZoom class="w-full h-56 object-cover" />
-
+                <img [src]="recipe.image" [alt]="recipe.name" appImageZoom
+                    class="rounded-2xl w-full h-56 object-cover" />
                 <div class="p-5 text-center space-y-2">
                     <h2 class="text-xl font-semibold">
                         {{ recipe.name }}
                     </h2>
-
                     <p>
                         <span class="font-medium">Cuisine:</span>
                         {{ recipe.cuisine }}
                     </p>
-
                     <p appDifficultyHighlight [difficulty]="recipe.difficulty">
                         <span class="font-medium">Difficulty:</span>
                         {{ recipe.difficulty }}
                     </p>
-
-
                     <p>
-                        ⭐ {{ recipe.rating }}
+                        <i class="pi pi-star-fill text-yellow-400"></i>
+                        {{ recipe.rating }}
                         ({{ recipe.reviewCount }} reviews)
                     </p>
-
-
                     <p>
                         <span class="font-medium">Calories:</span>
                         {{ recipe.caloriesPerServing }}
                     </p>
-
                     <button appHoverZoom
                         class="bg-red-500 hover:bg-red-600 text-white cursor-pointer px-6 py-2 rounded-full font-semibold transition-all duration-300 hover:scale-105">
-
                         View Recipe
                     </button>
                 </div>
             </div>
             }
-        </div>}
+        </div>
+        }
     </div>
 </div>

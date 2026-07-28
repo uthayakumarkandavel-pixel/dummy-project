@@ -17,7 +17,7 @@
     "@angular/forms": "^22.0.0",
     "@angular/platform-browser": "^22.0.0",
     "@angular/router": "^22.0.0",
-    "font-awesome": "^4.7.0",
+    "primeicons": "^8.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
@@ -34,7 +34,6 @@
     "vitest": "^4.0.8"
   },
   "allowScripts": {
-    "font-awesome@4.7.0": true,
     "@parcel/watcher@2.6.0": true,
     "esbuild@0.28.1": true,
     "lmdb@3.5.4": true,
