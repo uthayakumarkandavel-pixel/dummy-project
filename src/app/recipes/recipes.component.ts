@@ -1,18 +1,18 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { Recipe } from '../../models/recipe.model';
 import { RecipeService } from '../services/recipe';
 import { DifficultyHighlightDirective } from '../directives/difficulty-highlight';
-import { Loader } from '../loader/loader';
+import { Loader } from '../common/loader/loader';
 import { HoverZoomDirective } from '../directives/hover-zoom-button';
+import { RouterLink } from '@angular/router';
 
 
 @Component({
   selector: 'app-recipes',
   standalone: true,
-  imports: [DifficultyHighlightDirective, Loader,HoverZoomDirective],
+  imports: [DifficultyHighlightDirective, Loader,HoverZoomDirective,RouterLink],
   templateUrl: './recipes.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

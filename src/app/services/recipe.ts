@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { RecipeApiResponse } from '../../models/recipe.model';
+import { Recipe, RecipeApiResponse } from '../../models/recipe.model';
 
 
 @Injectable({ providedIn: 'root' })
@@ -12,6 +12,11 @@ export class RecipeService {
   getRecipes(): Observable<RecipeApiResponse> {
     return this.http.get<RecipeApiResponse>(
       'https://dummyjson.com/recipes'
+    )
+  }
+  getSingleRecipe(id:string):Observable<Recipe>{
+    return this.http.get<Recipe>(
+      `https://dummyjson.com/recipes/${id}`
     )
   }
 }
