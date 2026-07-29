@@ -1,12 +1,10 @@
 
-import { Directive, ElementRef, HostListener, Input, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, HostListener, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[hoverZoom]'
 })
 export class HoverZoomDirective {
-
-
   constructor(
     private el: ElementRef,
     private renderer: Renderer2
@@ -25,6 +23,4 @@ export class HoverZoomDirective {
     this.renderer.addClass(this.el.nativeElement, 'bg-red-700');
     this.renderer.removeClass(this.el.nativeElement, 'bg-red-600');
   }
-
-
 }

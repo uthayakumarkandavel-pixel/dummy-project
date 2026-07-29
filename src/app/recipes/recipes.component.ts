@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { map } from 'rxjs/operators';
 
 import { Recipe } from '../../models/recipe.model';
-import { RecipeService } from '../services/recipe';
 import { DifficultyHighlightDirective } from '../directives/difficulty-highlight';
-import { Loader } from '../common/loader/loader';
 import { HoverZoomDirective } from '../directives/hover-zoom-button';
-import { RouterLink } from '@angular/router';
+import { RecipeService } from '../services/recipe';
+import { Loader } from '../common/loader/loader';
 
 
 @Component({
@@ -33,8 +33,6 @@ export class RecipesComponent implements OnInit {
     ).subscribe(recipes => {
       this.loader.set(false);
       this.recipe.set(recipes);
-      console.log(this.loader);
-
     });
   }
 

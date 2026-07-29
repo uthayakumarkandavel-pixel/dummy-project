@@ -12,7 +12,7 @@ export const routes: Routes = [
         path: 'recipe',
         component: RecipesComponent,
     },
-      {
+    {
         path: 'recipe/:id',
         component: RecipeComponent,
     },  

@@ -1,13 +1,16 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { RecipeService } from '../../services/recipe';
-import { map } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs';
+
 import { Recipe } from '../../../models/recipe.model';
+import { Breadcrumbs } from '../../common/breadcrumbs/breadcrumbs';
+import { RecipeService } from '../../services/recipe';
 import { Loader } from '../../common/loader/loader';
 
 @Component({
   selector: 'app-recipe.component',
-  imports: [Loader],
+  imports: [Loader,Breadcrumbs],
+  standalone:true,
   templateUrl: './recipe.component.html',
 })
 
@@ -29,8 +32,6 @@ export class RecipeComponent implements OnInit {
       ).subscribe(res => {
           this.loader.set(false);
           this.recipe.set(res);
-          console.log(this.recipe());
-          console.log(this.loader());
         });
     }
 }

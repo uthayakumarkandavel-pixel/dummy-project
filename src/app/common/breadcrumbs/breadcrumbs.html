@@ -1,0 +1,16 @@
+<nav class="flex items-center gap-2">
+    @for (item of breadcrumbsItem; track item; let i = $index;) {
+        @if (item.link) {
+            <a appBreadcrumb breadcrumb="/recipe" class="text-orange-500 font-medium hover:text-orange-700 cursor-pointer">
+                {{ item.name }}
+            </a>
+        } @else {            
+            <span class="text-gray-600 font-medium">
+                {{ item.name }}
+            </span>
+        }
+        @if (i < breadcrumbsItem.length - 1) {
+            <i class="pi pi-angle-right text-gray-400 mt-1"></i>
+        }
+    }
+</nav>
