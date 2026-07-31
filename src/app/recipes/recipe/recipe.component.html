@@ -1,4 +1,4 @@
-<div class="min-h-screen bg-gradient-to-br from-yellow-100 via-orange-50 to-red-100 py-8 px-4">
+<div class="min-h-screen bg-gradient-to-br from-yellow-100 via-orange-50 to-red-100 py-6 px-4">
     @if(loader()) {
     <app-loader></app-loader>
     }
@@ -13,7 +13,7 @@
             <div class="flex items-center gap-2 bg-orange-50 border border-orange-200 rounded-full px-5 py-2 shadow-sm">
                 <i class="pi pi-star-fill text-yellow-500"></i>
                 <span>{{ recipe()?.rating }}</span>
-            </div>                    
+            </div>
             <div class="flex items-center gap-2 bg-orange-50 border border-orange-200 rounded-full px-5 py-2 shadow-sm">
                 <i class="pi pi-clock text-orange-600"></i>
                 <span>{{ recipe()?.prepTimeMinutes }} mins Prep</span>
@@ -39,12 +39,16 @@
                     </span>
                 </div>
             </div>
-            <div>
-                <app-ingredient [ingredients]="recipe()?.ingredients??[]">
+            <div class="mb-10 p-6 rounded-3xl bg-gradient-to-r from-orange-50 to-amber-50 border border-orange-200">
+                <app-ingredient [ingredients]="recipe()?.ingredients ?? []">
                 </app-ingredient>
             </div>
         </div>
-        <app-instruction [instructions]="recipe()?.instructions??[]"></app-instruction>
+        <app-selected-ingredients></app-selected-ingredients>
+        <div class="my-10 p-6 rounded-3xl bg-gradient-to-r from-orange-50 to-amber-50 border border-orange-200">
+            <app-instruction [instructions]="recipe()?.instructions??[]"></app-instruction>
+        </div>
+        <app-delivery-type />
     </div>
     }
 </div>

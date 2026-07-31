@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DoCheck, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
 
@@ -6,25 +6,28 @@ import { Recipe } from '../../../models/recipe.model';
 import { Breadcrumbs } from '../../common/breadcrumbs/breadcrumbs';
 import { RecipeService } from '../../services/recipe';
 import { Loader } from '../../common/loader/loader';
-import { IngredientComponent } from './ingredient/ingredient.component';
+
+import { SelectedIngredientsComponent } from './selected-ingredients/selected-ingredients.component';
+import { DeliveryTypeComponent } from './delivery-type/delivery-type.component';
 import { InstructionComponent } from './instruction/instruction.component';
+import { IngredientComponent } from './ingredient/ingredient.component';
+import { IngredientService } from '../../services/ingredients';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { DeliveryType } from '../../services/delivery-type';
 
 @Component({
   selector: 'app-recipe.component',
   standalone: true,
-  imports: [Loader, Breadcrumbs, IngredientComponent, InstructionComponent],
+  imports: [Loader, Breadcrumbs, IngredientComponent, InstructionComponent, SelectedIngredientsComponent, DeliveryTypeComponent],
   templateUrl: './recipe.component.html',
 })
 export class RecipeComponent implements OnInit {
   recipe = signal<Recipe | null>(null);
   loader = signal(false);
 
-
-  showIngredients = signal(true);
-  showInstructions = signal(true);
-
   private recipeService = inject(RecipeService);
   private activateRoute = inject(ActivatedRoute);
+ 
 
   id = this.activateRoute.snapshot.paramMap.get('id') || "";
 
