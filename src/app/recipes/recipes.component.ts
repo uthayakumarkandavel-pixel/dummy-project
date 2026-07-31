@@ -16,6 +16,7 @@ import { RecipeService } from '../services/recipe';
 import { Loader } from '../common/loader/loader';
 import { IngredientService } from '../services/ingredients';
 import { DeliveryType } from '../services/delivery-type';
+import { Chip } from '../common/chip/chip';
 
 @Component({
   selector: 'app-recipes',
@@ -24,6 +25,7 @@ import { DeliveryType } from '../services/delivery-type';
     DifficultyHighlightDirective,
     Loader,
     HoverZoomDirective,
+    Chip,
     RouterLink
   ],
   templateUrl: './recipes.component.html',
@@ -75,9 +77,16 @@ export class RecipesComponent implements OnInit {
     });
   }
 
-  resetFilters(): void {
-    this.ingredientService.reset();
-    this.deliveryTypeService.reset();
+  handleCloseChip(ingredient:string) {
+    const updatedIngredients = this.selectedIngredients().filter(
+      item => item !== ingredient
+    );
 
+    this.ingredientService.reset(updatedIngredients);
+  }
+
+  resetFilters(): void {
+    this.ingredientService.reset([]);
+    this.deliveryTypeService.reset('');
   }
 }

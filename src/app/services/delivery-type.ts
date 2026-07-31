@@ -11,8 +11,8 @@ export class DeliveryType {
         this.deliveryTypeSubject.next(deliveryType);
     }
 
-    reset() {
-        this.deliveryTypeSubject.next('');
+    reset(type:string) {
+        this.deliveryTypeSubject.next(type);
     }
 
 }

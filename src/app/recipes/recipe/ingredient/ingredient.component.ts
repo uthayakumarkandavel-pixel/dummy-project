@@ -11,7 +11,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 export class IngredientComponent {
   @Input() ingredients: string[] = [];
 
-  title = 'Ingredients';
+  title = 'Select the Ingredients To Buy';
   selectedIngredients;
   constructor(public ingredientService: IngredientService) {
     this.selectedIngredients = toSignal(
@@ -19,7 +19,7 @@ export class IngredientComponent {
       { initialValue: [] }
     );
   }
-
+  
   ingredientSelectHandler(ingredient: string) {
     this.ingredientService.toggleIngredient(ingredient);
   }

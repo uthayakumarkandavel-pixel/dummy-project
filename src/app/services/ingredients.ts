@@ -25,8 +25,8 @@ export class IngredientService {
     }
   }
 
-  reset() {
-    this.selectedIngredientsSubject.next([]);
+  reset(ingredient:string[]) {
+    this.selectedIngredientsSubject.next(ingredient);
   }
 
 
