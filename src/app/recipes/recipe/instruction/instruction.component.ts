@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DoCheck, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-instruction',
@@ -7,16 +7,7 @@ import { ChangeDetectionStrategy, Component, DoCheck, Input } from '@angular/cor
   changeDetection: ChangeDetectionStrategy.OnPush
 
 })
-export class InstructionComponent implements DoCheck{
+export class InstructionComponent  {
   @Input() instructions!: string[];
-    title=''
-count=0;
-  onButtonClick(){
-    alert('Button Click')
-  }
-  ngDoCheck(): void {
-        this.title='Instructions'+this.count;
-        this.count++;
-    console.log("Do check triggers Instruction");    
-  }
+  title:string = 'Instructions';
 }
