@@ -1,6 +1,4 @@
 import { Routes } from '@angular/router';
-import { RecipesComponent } from './recipes/recipes.component';
-import { RecipeComponent } from './recipes/recipe/recipe.component';
 
 export const routes: Routes = [
         {
@@ -10,10 +8,10 @@ export const routes: Routes = [
     },
     {
         path: 'recipe',
-        component: RecipesComponent,
+        loadComponent:()=>import('./recipes/recipes.component').then((m)=>m.RecipesComponent),
     },
     {
         path: 'recipe/:id',
-        component: RecipeComponent,
+        loadComponent:()=>import('./recipes/recipe/recipe.component').then((m)=>m.RecipeComponent),
     },  
 ];

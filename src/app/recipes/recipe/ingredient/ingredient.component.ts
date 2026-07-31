@@ -4,12 +4,15 @@ import { ChangeDetectionStrategy, Component, DoCheck, Input } from '@angular/cor
   selector: 'app-ingredient',
   imports: [],
   templateUrl: './ingredient.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
-
+  changeDetection:ChangeDetectionStrategy.Default
 })
-export class IngredientComponent implements DoCheck {
+export class IngredientComponent implements DoCheck{
   @Input() ingredients:string[]|undefined;
-  ngDoCheck() {
-    console.log("Ingredient checked");
+  title=''
+  count=0;
+    ngDoCheck(): void {
+        this.title='Ingredient'+this.count;
+        this.count++;
+    console.log("Do check triggers Ingredients");    
   }
 }

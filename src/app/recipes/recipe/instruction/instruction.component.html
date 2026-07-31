@@ -1,9 +1,12 @@
 <div class="mt-12">
     <h2 class="text-3xl font-bold text-orange-600 flex items-center gap-3 mb-6">
         <i class="pi pi-list-check"></i>
-        Instructions
+        {{title}}
     </h2>
     <div class="space-y-4">
+        <button class="px-4 py-2 bg-orange-500 text-white rounded-lg" (click)="onButtonClick()">
+            Click Me
+        </button> 
         @for(step of instructions; track step; let i = $index){
         <div class="flex gap-4 bg-orange-50 border border-orange-100 rounded-xl p-4 hover:bg-orange-100 transition">
             <div

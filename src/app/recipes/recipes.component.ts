@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, DoCheck, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { map } from 'rxjs/operators';
 
@@ -14,14 +14,19 @@ import { Loader } from '../common/loader/loader';
   standalone: true,
   imports: [DifficultyHighlightDirective, Loader,HoverZoomDirective,RouterLink],
   templateUrl: './recipes.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.Default
 })
-export class RecipesComponent implements OnInit {
+export class RecipesComponent implements OnInit,DoCheck{
 
   private recipeService = inject(RecipeService);
   recipe = signal<Recipe[]>([]);
   loader = signal(false);
   searchText = signal('');
+
+  ngDoCheck(): void {
+    console.log('Do Check triggers Recipes page');
+    
+  }
 
   filteredRecipes = computed(() => {
     const search = this.searchText().trim().toLowerCase();

@@ -14,15 +14,19 @@ import { InstructionComponent } from './instruction/instruction.component';
   standalone: true,
   imports: [Loader, Breadcrumbs, IngredientComponent, InstructionComponent],
   templateUrl: './recipe.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection:ChangeDetectionStrategy.Default
 })
-export class RecipeComponent implements OnInit,DoCheck{
+export class RecipeComponent implements OnInit,DoCheck {
   recipe = signal<Recipe | null>(null);
   loader = signal(false);
+  title='';
+  count=0;
 
   showIngredients = signal(true);
   showInstructions = signal(true);
-
+onButtonClick(){
+  alert('Recipe Clicked')
+}
   private recipeService = inject(RecipeService);
   private activateRoute = inject(ActivatedRoute);
 
@@ -32,9 +36,13 @@ export class RecipeComponent implements OnInit,DoCheck{
     this.loader.set(true);
     this.getRecipe();
   }
-  ngDoCheck() {
-    console.log("Recipie checked");
+
+  ngDoCheck(): void {
+    this.title='Title'+this.count
+    this.count++;
+    console.log('Do Check triggers Recipe');
   }
+
   getRecipe(): void {
     this.recipeService.getSingleRecipe(this.id)
       .pipe(map(res => res))
@@ -44,12 +52,4 @@ export class RecipeComponent implements OnInit,DoCheck{
       });
   }
 
-onButtonClick(): void {
-  const current = this.recipe();
-  if (!current) return;
-  this.recipe.set({
-    ...current,
-    ingredients: []
-  } as Recipe);
-}
 }

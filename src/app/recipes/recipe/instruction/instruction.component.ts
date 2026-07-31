@@ -7,13 +7,16 @@ import { ChangeDetectionStrategy, Component, DoCheck, Input } from '@angular/cor
   changeDetection: ChangeDetectionStrategy.OnPush
 
 })
-export class InstructionComponent implements DoCheck {
+export class InstructionComponent implements DoCheck{
   @Input() instructions!: string[];
-
-  ngDoCheck() {
-    console.log("Instruction checked");
+    title=''
+count=0;
+  onButtonClick(){
+    alert('Button Click')
   }
-  toggleIngredients() {
-    console.log('hello');
+  ngDoCheck(): void {
+        this.title='Instructions'+this.count;
+        this.count++;
+    console.log("Do check triggers Instruction");    
   }
 }
