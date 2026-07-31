@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { map } from 'rxjs/operators';
 
@@ -21,6 +21,20 @@ export class RecipesComponent implements OnInit {
   private recipeService = inject(RecipeService);
   recipe = signal<Recipe[]>([]);
   loader = signal(false);
+  searchText = signal('');
+
+  filteredRecipes = computed(() => {
+    const search = this.searchText().trim().toLowerCase();
+
+    if (!search) {
+      return this.recipe();
+    }
+
+    return this.recipe().filter(recipe =>
+      recipe.name.toLowerCase().includes(search) ||
+      recipe.cuisine.toLowerCase().includes(search)
+    );
+  });
   ngOnInit(): void {
     this.loader.set(true);
     this.getRecipe();
@@ -35,10 +49,4 @@ export class RecipesComponent implements OnInit {
       this.recipe.set(recipes);
     });
   }
-
-
-  trackByRecipe(index: number, recipe: Recipe): number {
-    return recipe.id;
-  }
-
 }

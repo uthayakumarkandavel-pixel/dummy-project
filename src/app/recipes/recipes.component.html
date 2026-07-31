@@ -3,10 +3,18 @@
         <h1 class="text-4xl font-extrabold text-orange-700 text-center mb-8">
             Recipe Explorer
         </h1>
+        <div class="flex justify-center mb-8">
+            <input
+                type="text"
+                placeholder="Search by recipe or cuisine..."
+                [value]="searchText()"
+                (input)="searchText.set($any($event.target).value)"
+                class="w-full max-w-lg px-4 py-3 rounded-xl border border-orange-300 focus:outline-none focus:ring-2 focus:ring-orange-500" />
+        </div>
         @if(loader()){<app-loader></app-loader>}
         @else{
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            @for (recipe of recipe(); track recipe.id) {
+            @for (recipe of filteredRecipes(); track recipe.id) {
             <div
                 class="bg-amber-50 border border-orange-200 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
                 <img [src]="recipe.image" [alt]="recipe.name" appImageZoom
@@ -34,7 +42,7 @@
                     </p>
                     <button hoverZoom
                         [routerLink]="['/recipe',recipe.id]"
-                        class="bg-red-700  text-white cursor-pointer px-6 py-2 rounded-full font-semibold transition-all duration-300">
+                        class="bg-red-700 text-white cursor-pointer px-6 py-2 rounded-full font-semibold transition-all duration-300">
                         View Recipe
                     </button>
                 </div>

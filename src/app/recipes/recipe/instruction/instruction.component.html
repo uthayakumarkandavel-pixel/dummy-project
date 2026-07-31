@@ -1,0 +1,19 @@
+<div class="mt-12">
+    <h2 class="text-3xl font-bold text-orange-600 flex items-center gap-3 mb-6">
+        <i class="pi pi-list-check"></i>
+        Instructions
+    </h2>
+    <div class="space-y-4">
+        @for(step of instructions; track step; let i = $index){
+        <div class="flex gap-4 bg-orange-50 border border-orange-100 rounded-xl p-4 hover:bg-orange-100 transition">
+            <div
+                class="w-10 h-10 rounded-full bg-orange-600 text-white flex items-center justify-center font-semibold shrink-0">
+                {{ i + 1 }}
+            </div>
+            <p class="text-gray-700 leading-7">
+                {{ step }}
+            </p>
+        </div>
+        }
+    </div>
+</div>
