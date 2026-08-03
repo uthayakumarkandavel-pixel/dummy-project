@@ -1,9 +1,8 @@
-<div class="mt-12">
-    <h2 class="text-3xl font-bold text-orange-600 flex items-center gap-3 mb-6">
-        <i class="pi pi-list-check"></i>
+<app-recipes-card>
+    <ng-content header><i class="pi pi-list-check"></i>
         {{title}}
-    </h2>
-    <div class="space-y-4">
+    </ng-content>
+    <ng-content>
         @for(step of instructions; track step; let i = $index){
         <div class="flex gap-4 bg-orange-100 border border-orange-200 rounded-xl p-4 hover:bg-orange-200 transition">
             <div
@@ -15,5 +14,5 @@
             </p>
         </div>
         }
-    </div>
-</div>
+    </ng-content>
+</app-recipes-card>

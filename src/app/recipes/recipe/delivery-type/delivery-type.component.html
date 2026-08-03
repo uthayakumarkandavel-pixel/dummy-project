@@ -1,26 +1,23 @@
-<section
-  class="my-10 rounded-3xl border border-orange-200 bg-gradient-to-r from-orange-50 to-amber-50 p-6">
+<app-recipes-card>
+  <ng-content header><i class="pi pi-truck"></i>
+    Ingredient Delivery Type
+  </ng-content>
 
-  <h2 class="mb-6 flex items-center gap-3 text-3xl font-bold text-orange-600">
-    <i class="pi pi-truck"></i>
-   Ingredient Delivery Type
-  </h2>
-
-  <div class="flex flex-wrap gap-4">
-  @for (option of deliveryTypes; track option.name) {
-    <label
-      (click)="deliveryTypeSelectHandler(option.name)"
-      [class.bg-orange-200]="isSelected(option.name)"
-      [class.border-orange-400]="isSelected(option.name)"
-      [class.bg-orange-50]="!isSelected(option.name)"
-      [class.border-orange-200]="!isSelected(option.name)"
-      class="flex cursor-pointer items-center gap-3 rounded-2xl border px-5 py-3 transition-colors hover:bg-orange-100">
-      <i [class]="option.icon + ' text-orange-600'"></i>
-      <span class="font-medium text-orange-700">
-        {{ option.name }}
-      </span>
-    </label>
-  }
-</div>
-
-</section>
+  <ng-content>
+    @for (option of deliveryTypes; track option.name) {
+      <label
+        (click)="deliveryTypeSelectHandler(option.name)"
+        [ngClass]="{
+          'bg-orange-200 border-orange-400': isSelected(option.name),
+          'bg-orange-50 border-orange-200': !isSelected(option.name)
+        }"
+        class="flex cursor-pointer items-center gap-3 rounded-2xl border px-5 py-3 transition-colors hover:bg-orange-100"
+      >
+        <i [class]="option.icon + ' text-orange-600'"></i>
+        <span class="font-medium text-orange-700">
+          {{ option.name }}
+        </span>
+      </label>
+    }
+  </ng-content>
+</app-recipes-card>

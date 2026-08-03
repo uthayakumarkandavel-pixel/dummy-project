@@ -12,15 +12,17 @@ export class HoverZoomDirective {
 
   @HostListener('mouseover')
   onMouseOver() {
-    this.renderer.setStyle(this.el.nativeElement, 'font-size', '17px');
     this.renderer.addClass(this.el.nativeElement, 'bg-red-600');
+    this.renderer.addClass(this.el.nativeElement,'text-[17px]');
+    this.renderer.removeClass(this.el.nativeElement,'text-[15px]');
     this.renderer.removeClass(this.el.nativeElement, 'bg-red-700');
   }
   
   @HostListener('mouseleave')
   onMouseLeave() {
-    this.renderer.setStyle(this.el.nativeElement, 'font-size', '15px');
     this.renderer.addClass(this.el.nativeElement, 'bg-red-700');
+    this.renderer.addClass(this.el.nativeElement,'text-[15px]');
+    this.renderer.removeClass(this.el.nativeElement,'text-[17px]');
     this.renderer.removeClass(this.el.nativeElement, 'bg-red-600');
   }
 }

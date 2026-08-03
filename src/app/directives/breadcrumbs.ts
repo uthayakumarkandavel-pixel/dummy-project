@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
   selector: '[appBreadcrumb]'
 })
 export class BreadcrumbDirective {
-  private router = inject(Router);
+  private readonly router = inject(Router);
 
   @Input() breadcrumb!: string | string[];
 

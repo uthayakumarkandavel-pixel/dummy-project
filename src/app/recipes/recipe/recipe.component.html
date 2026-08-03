@@ -42,16 +42,12 @@
                     </span>
                 </div>
             </div>
-            <div class="mb-10 p-6 rounded-3xl bg-gradient-to-r from-orange-50 to-amber-50 border border-orange-200">
-                <app-ingredient [ingredients]="recipe()?.ingredients ?? []">
-                </app-ingredient>
-            </div>
+            <app-ingredient [ingredients]="recipe()?.ingredients ?? []">
+            </app-ingredient>
         </div>
         <app-delivery-type />
 
-        <div class="my-10 p-6 rounded-3xl bg-gradient-to-r from-orange-50 to-amber-50 border border-orange-200">
-            <app-instruction [instructions]="recipe()?.instructions??[]"></app-instruction>
-        </div>
+        <app-instruction [instructions]="recipe()?.instructions??[]"></app-instruction>
     </div>
     }
 </div>

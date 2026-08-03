@@ -1,13 +1,14 @@
-import { Service } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-@Service()
-export class DeliveryType {
+@Injectable({
+  providedIn: 'root'
+})export class DeliveryTypeService {
     private deliveryTypeSubject = new BehaviorSubject<string>('');
 
-    selectedDeliveyType = this.deliveryTypeSubject.asObservable();
+    selectedDeliveryType = this.deliveryTypeSubject.asObservable();
 
-    toggleDeliverType(deliveryType: string) {
+    toggleDeliveryType(deliveryType: string) {
         this.deliveryTypeSubject.next(deliveryType);
     }
 

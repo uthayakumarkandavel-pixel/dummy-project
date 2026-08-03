@@ -3,6 +3,15 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-loader',
   imports: [],
-  templateUrl: './loader.html',
+  template: `<div class="fixed inset-0 z-50 flex items-center justify-center">
+    <div class="flex flex-col items-center gap-5">
+        <div class="flex items-center gap-1 text-sm font-medium text-orange-600">
+            <i class="pi pi-spinner animate-spin text-3xl"></i><span> Loading</span>
+            <span class="animate-bounce">.</span>
+            <span class="animate-bounce [animation-delay:150ms]">.</span>
+            <span class="animate-bounce [animation-delay:300ms]">.</span>
+        </div>
+    </div>
+</div>`,
 })
-export class Loader {}
+export class Loader { }

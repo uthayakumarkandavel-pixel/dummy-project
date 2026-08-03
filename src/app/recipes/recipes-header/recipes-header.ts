@@ -1,31 +1,26 @@
-import { Component, inject, input, output } from '@angular/core';
-import { Chip } from '../../common/chip/chip';
+import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
 import { Router } from '@angular/router';
+import { Chip } from '../../common/chip/chip';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [Chip],
   templateUrl: './recipes-header.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
-  selectedIngredients = input<string[]>([]);
-  selectedDeliveryType = input<string | null>(null);
-  router= inject(Router);
+  readonly selectedIngredients = input<string[]>([]);
+  readonly selectedDeliveryType = input<string | null>(null);
 
-  closeChip = output<string>();
-  reset = output<void>();
+  readonly closeChip = output<string>();
+  readonly reset = output<void>();
 
-  handleCloseChip(item: string) {
-    this.closeChip.emit(item);
-  }
+  private readonly router = inject(Router);
 
-  handleReset() {
-    this.reset.emit();
-  }
+  handleCloseChip = (item: string) => this.closeChip.emit(item);
 
-  navigateToHome() {
-    this.router.navigate(['/']); 
-  }
+  handleReset = () => this.reset.emit();
 
+  navigateToHome = () => this.router.navigate(['/']);
 }

@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   computed,
   inject,
@@ -11,12 +12,13 @@ import { toSignal } from '@angular/core/rxjs-interop';
 
 import { Recipe } from '../../models/recipe.model';
 import { HoverZoomDirective } from '../directives/hover-zoom-button';
-import { RecipeService } from '../services/recipe';
+import { RecipeService } from '../services/recipe.service';
 import { Loader } from '../common/loader/loader';
-import { IngredientService } from '../services/ingredients';
-import { DeliveryType } from '../services/delivery-type';
+import { IngredientService } from '../services/ingredients.service';
+import { DeliveryTypeService } from '../services/delivery-type.service';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { HeaderComponent } from './recipes-header/recipes-header';
+import { RecipesCardComponent } from './recipes-card/recipes-card.component';
 
 @Component({
   selector: 'app-recipes',
@@ -26,15 +28,17 @@ import { HeaderComponent } from './recipes-header/recipes-header';
     HoverZoomDirective,
     HeaderComponent,
     RouterLink,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    RecipesCardComponent
   ],
   templateUrl: './recipes.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RecipesComponent implements OnInit {
 
-  private recipeService = inject(RecipeService);
-  private ingredientService = inject(IngredientService);
-  private deliveryTypeService = inject(DeliveryType);
+  private readonly recipeService = inject(RecipeService);
+  private readonly ingredientService = inject(IngredientService);
+  private readonly deliveryTypeService = inject(DeliveryTypeService);
 
   recipe = signal<Recipe[]>([]);
   loader = signal(false);
@@ -51,7 +55,7 @@ export class RecipesComponent implements OnInit {
   );
 
   selectedDeliveryType = toSignal(
-    this.deliveryTypeService.selectedDeliveyType,
+    this.deliveryTypeService.selectedDeliveryType,
     { initialValue: '' }
   );
 

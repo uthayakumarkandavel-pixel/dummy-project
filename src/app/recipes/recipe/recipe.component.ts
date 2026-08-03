@@ -4,44 +4,45 @@ import { map } from 'rxjs';
 
 import { Recipe } from '../../../models/recipe.model';
 import { Breadcrumbs } from '../../common/breadcrumbs/breadcrumbs';
-import { RecipeService } from '../../services/recipe';
+import { RecipeService } from '../../services/recipe.service';
 import { Loader } from '../../common/loader/loader';
 import { HeaderComponent } from '../recipes-header/recipes-header';
 import { DeliveryTypeComponent } from './delivery-type/delivery-type.component';
 
 import { InstructionComponent } from './instruction/instruction.component';
 import { IngredientComponent } from './ingredient/ingredient.component';
-import { IngredientService } from '../../services/ingredients';
+import { IngredientService } from '../../services/ingredients.service';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { DeliveryType } from '../../services/delivery-type';
+import { DeliveryTypeService } from '../../services/delivery-type.service';
 
 @Component({
   selector: 'app-recipe.component',
   standalone: true,
-  imports: [Loader, Breadcrumbs, HeaderComponent,DeliveryTypeComponent,IngredientComponent, InstructionComponent],
+  imports: [Loader, Breadcrumbs, HeaderComponent, DeliveryTypeComponent, IngredientComponent, InstructionComponent],
   templateUrl: './recipe.component.html',
 })
 export class RecipeComponent implements OnInit {
   recipe = signal<Recipe | null>(null);
   loader = signal(false);
-  
-  private ingredientService = inject(IngredientService);
-  private deliveryTypeService = inject(DeliveryType);
+
+  private readonly ingredientService = inject(IngredientService);
+  private readonly deliveryTypeService = inject(DeliveryTypeService);
 
 
-  private recipeService = inject(RecipeService);
-  private activateRoute = inject(ActivatedRoute);
+  private readonly recipeService = inject(RecipeService);
+  private readonly activateRoute = inject(ActivatedRoute);
+
   selectedIngredients = toSignal(
     this.ingredientService.selectedIngredients$,
     { initialValue: [] }
   );
 
   selectedDeliveryType = toSignal(
-    this.deliveryTypeService.selectedDeliveyType,
+    this.deliveryTypeService.selectedDeliveryType,
     { initialValue: '' }
   );
 
-  id = this.activateRoute.snapshot.paramMap.get('id') || "";
+  readonly id = this.activateRoute.snapshot.paramMap.get('id') ?? "";
 
   ngOnInit(): void {
     this.loader.set(true);
@@ -49,20 +50,16 @@ export class RecipeComponent implements OnInit {
   }
 
   getRecipe(): void {
-    this.recipeService.getSingleRecipe(this.id)
-      .pipe(map(res => res))
-      .subscribe(res => {
-        this.loader.set(false);
-        this.recipe.set(res);
-      });
+    this.recipeService.getSingleRecipe(this.id).subscribe(recipe => {
+      this.recipe.set(recipe);
+      this.loader.set(false);
+    });
   }
 
   handleCloseChip(ingredient: string) {
-    const updatedIngredients = this.selectedIngredients().filter(
-      item => item !== ingredient
+    this.ingredientService.reset(
+      this.selectedIngredients().filter(item => item !== ingredient)
     );
-
-    this.ingredientService.reset(updatedIngredients);
   }
 
   resetFilters(): void {
