@@ -1,9 +1,8 @@
-<div class="my-10 rounded-3xl border border-orange-200 bg-gradient-to-r from-orange-50 to-amber-50 p-6">
-  <h2 class="mb-6 flex items-center gap-3 text-3xl font-bold text-orange-600">
-    <ng-content select="[header]"></ng-content>
-  </h2>
-
-  <div class="max-h-[500px] space-y-3 overflow-y-auto pr-2">
+<div
+  class="bg-amber-50 border border-orange-200 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+  <img [src]="recipe.image" fetchpriority="high" width="473" height="473" [alt]="recipe.name" appImageZoom
+    class="rounded-2xl object-cover" />
+  <div class="p-5 text-center space-y-2">
     <ng-content></ng-content>
   </div>
 </div>

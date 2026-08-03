@@ -32,7 +32,7 @@
         </div>
         <div class="grid md:grid-cols-2 gap-12 items-start">
             <div class="flex justify-center flex-col items-center mt-2">
-                <img [src]="recipe()?.image" [alt]="recipe()?.name"
+                <img [src]="recipe()?.image" [alt]="recipe()?.name" loading="lazy"
                     class=" max-w-md aspect-square object-cover rounded-3xl shadow-lg border-4 border-orange-100 transition-transform duration-300 hover:scale-105">
                 <div class="flex justify-center mt-5">
                     <span
