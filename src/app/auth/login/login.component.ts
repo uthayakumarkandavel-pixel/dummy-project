@@ -4,6 +4,7 @@ import { email, form, FormField, required, schema } from '@angular/forms/signals
 import { Validators } from '@angular/forms';
 import { Login } from '../../../models/login.model';
 import { AuthService } from '../../services/login.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ export class LoginComponent {
 
   private readonly router = inject(Router);
   private readonly AuthService = inject(AuthService);
+  private toastr = inject(ToastrService);
 
   readonly loading = signal(false);
   readonly error = signal('');
@@ -35,7 +37,6 @@ export class LoginComponent {
 
     event.preventDefault();
 
-
     this.loading.set(true);
     this.error.set('');
 
@@ -43,8 +44,8 @@ export class LoginComponent {
       username: 'emilys',
       password: 'emilyspass',
     }).subscribe({
-      next: () => this.router.navigate(['/recipe']),
-      error: () => this.error.set('Invalid username or password')
+      next: () => { this.toastr.success('Login Successful'); this.router.navigate(['/recipe']) },
+      error: (error) => this.toastr.error(error.error.message)
     });
 
   }

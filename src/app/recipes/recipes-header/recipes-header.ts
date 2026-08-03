@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Chip } from '../../common/chip/chip';
+import { AuthService } from '../../services/login.service';
 
 @Component({
   selector: 'app-header',
@@ -17,10 +18,16 @@ export class HeaderComponent {
   readonly reset = output<void>();
 
   private readonly router = inject(Router);
+  private readonly authService = inject(AuthService);
 
   handleCloseChip = (item: string) => this.closeChip.emit(item);
 
   handleReset = () => this.reset.emit();
 
   navigateToHome = () => this.router.navigate(['/']);
+
+  logout = () => {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
 }

@@ -10,14 +10,14 @@ export class IngredientService {
 
   selectedIngredients$ = this.selectedIngredientsSubject.asObservable();
 
-  toggleIngredient(ingredient: string) {
+  toggleIngredient=(ingredient: string)=> {
     const selected = this.selectedIngredientsSubject.getValue();
 
-    if (selected.includes(ingredient)) {
+    if (selected.includes(ingredient))
       this.selectedIngredientsSubject.next(
         selected.filter(i => i !== ingredient)
       );
-    } else {
+    else {
       this.selectedIngredientsSubject.next([
         ...selected,
         ingredient
@@ -25,9 +25,5 @@ export class IngredientService {
     }
   }
 
-  reset(ingredient:string[]) {
-    this.selectedIngredientsSubject.next(ingredient);
-  }
-
-
+  reset = (ingredient: string[]) => this.selectedIngredientsSubject.next(ingredient);
 }

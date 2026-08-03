@@ -8,12 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 
     selectedDeliveryType = this.deliveryTypeSubject.asObservable();
 
-    toggleDeliveryType(deliveryType: string) {
-        this.deliveryTypeSubject.next(deliveryType);
-    }
-
-    reset(type:string) {
-        this.deliveryTypeSubject.next(type);
-    }
-
+    toggleDeliveryType=(deliveryType: string)=>this.deliveryTypeSubject.next(deliveryType);
+    
+    reset=(type:string) =>this.deliveryTypeSubject.next(type);
 }

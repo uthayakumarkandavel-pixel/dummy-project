@@ -28,7 +28,6 @@ export class RecipeComponent implements OnInit {
   private readonly ingredientService = inject(IngredientService);
   private readonly deliveryTypeService = inject(DeliveryTypeService);
 
-
   private readonly recipeService = inject(RecipeService);
   private readonly activateRoute = inject(ActivatedRoute);
 
@@ -66,5 +65,17 @@ export class RecipeComponent implements OnInit {
     this.ingredientService.reset([]);
     this.deliveryTypeService.reset('');
   }
+
+protected get recipeInfo() {
+  const r = this.recipe();
+  if (!r) return [];
+
+  return [
+    { icon: 'pi pi-star-fill text-yellow-500', value: r.rating, label: 'rating' },
+    { icon: 'pi pi-clock text-orange-600', value: `${r.prepTimeMinutes} mins Prep`, label: 'prep' },
+    { icon: 'pi pi-stopwatch text-orange-600', value: `${r.cookTimeMinutes} mins Cook`, label: 'cook' },
+    { icon: 'pi pi-users text-orange-600', value: `${r.servings} Servings`, label: 'servings' }
+  ];
+}
 
 }

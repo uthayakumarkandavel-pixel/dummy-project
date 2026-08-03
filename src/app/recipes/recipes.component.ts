@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  inject,
-  OnInit,
-  signal
-} from '@angular/core';
+import {ChangeDetectionStrategy,Component,computed,inject,OnInit,signal} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -16,21 +9,13 @@ import { RecipeService } from '../services/recipe.service';
 import { Loader } from '../common/loader/loader';
 import { IngredientService } from '../services/ingredients.service';
 import { DeliveryTypeService } from '../services/delivery-type.service';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { HeaderComponent } from './recipes-header/recipes-header';
 import { RecipesCardComponent } from './recipes-card/recipes-card.component';
 
 @Component({
   selector: 'app-recipes',
   standalone: true,
-  imports: [
-    Loader,
-    HoverZoomDirective,
-    HeaderComponent,
-    RouterLink,
-    InfiniteScrollModule,
-    RecipesCardComponent
-  ],
+  imports: [Loader, HoverZoomDirective, HeaderComponent, RouterLink, RecipesCardComponent],
   templateUrl: './recipes.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -43,11 +28,6 @@ export class RecipesComponent implements OnInit {
   recipe = signal<Recipe[]>([]);
   loader = signal(false);
   searchText = signal('');
-
-  skip = 0;
-  limit = 5;
-  scrollDistance = 2;
-  scrollThrottle = 200;
 
   selectedIngredients = toSignal(
     this.ingredientService.selectedIngredients$,
@@ -62,9 +42,8 @@ export class RecipesComponent implements OnInit {
   filteredRecipes = computed(() => {
     const search = this.searchText().trim().toLowerCase();
 
-    if (!search) {
-      return this.recipe();
-    }
+    if (!search)  return this.recipe();
+    
 
     return this.recipe().filter(recipe =>
       recipe.name.toLowerCase().includes(search) ||
@@ -74,32 +53,20 @@ export class RecipesComponent implements OnInit {
 
   ngOnInit(): void {
     this.loader.set(true);
-    this.getRecipe(0);
+    this.getRecipe();
   }
 
-  getRecipe(skip: number): void {
-    this.recipeService.getRecipes(skip)
+  getRecipe(): void {
+    this.recipeService.getRecipes()
       .pipe(map(res => res.recipes))
       .subscribe({
         next: (recipes) => {
-
-          if (skip === 0) {            
-            this.recipe.set(recipes);
-          } else {
-            this.recipe.update(current => [...current, ...recipes]);
-          }
-
+          this.recipe.set(recipes);
           this.loader.set(false);
         },
-        error: () => {
-          this.loader.set(false);
-        }
+        error: () =>this.loader.set(false)
+        
       });
-  }
-
-  onScrollDown(): void {
-    this.skip += this.limit;
-    this.getRecipe(this.skip);
   }
 
   handleCloseChip(ingredient: string) {
