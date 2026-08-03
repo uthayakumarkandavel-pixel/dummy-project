@@ -1,0 +1,67 @@
+<div class="min-h-screen bg-orange-50 flex items-center justify-center px-4">
+    <div class="w-full max-w-md rounded-3xl bg-white p-8 shadow-xl">
+        <div class="text-center">
+            <div class="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-orange-500 shadow-lg">
+                <img src="/favicon.webp" alt="Recipe Explorer" class="w-20 h-20">
+            </div>
+            <h1 class="mt-5 text-3xl font-extrabold text-gray-800">
+                Recipe Explorer
+            </h1>
+            <p class="mt-2 text-gray-500">
+                Sign in to continue
+            </p>
+        </div>
+        <form class="mt-10 space-y-5" (submit)="onSubmit($event); $event.preventDefault()">            
+            <div>
+                <label for="email" class="mb-2 block text-sm font-medium text-gray-700">
+                    Email
+                </label>
+                <div class="relative">
+                    <i class="pi pi-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    <input id="email" type="email" placeholder="Enter your email" [formField]="loginForm.username"
+                        class="w-full rounded-xl border border-gray-300 py-3 pl-12 pr-4 transition outline-none focus:border-orange-500 focus:ring-4 focus:ring-orange-100">
+                </div>
+                @if (loginForm.username().touched() && loginForm.username().invalid()) {
+                    @for(error of loginForm.username().errors();track error){
+                        <p class="mt-1 text-sm text-red-500">
+                            {{error.message}}
+                        </p>
+                    }
+                }
+            </div>
+            <div>
+                <label for="password" class="mb-2 block text-sm font-medium text-gray-700">
+                    Password
+                </label>
+                <div class="relative">
+                    <i class="pi pi-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">                        
+                    </i>
+                    <input id="password" type="password" placeholder="Enter your password"
+                        [formField]="loginForm.password"
+                        class="w-full rounded-xl border border-gray-300 py-3 pl-12 pr-12 transition outline-none focus:border-orange-500 focus:ring-4 focus:ring-orange-100">
+                </div>
+                @if (loginForm.password().touched() && loginForm.password().invalid()) {
+                    @for(error of loginForm.password().errors();track error){
+                        <p class="mt-1 text-sm text-red-500">
+                            {{error.message}}
+                        </p>
+                    }
+                }
+            </div>
+            <div class="text-right">
+                <button type="button" class="text-sm font-medium text-orange-500 hover:text-orange-600">
+                    Forgot Password?
+                </button>
+            </div>
+            <button type="submit" [disabled]="loading()"
+                class="w-full cursor-pointer rounded-xl bg-orange-500 py-3 font-semibold text-white transition hover:bg-orange-600 active:scale-[0.99] disabled:opacity-50">
+                @if (loading()) {
+                Signing in...
+                }
+                @else {
+                Sign In
+                }
+            </button>
+        </form>
+    </div>
+</div>
