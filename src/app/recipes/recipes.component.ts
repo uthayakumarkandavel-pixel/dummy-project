@@ -17,16 +17,17 @@ import { Loader } from '../common/loader/loader';
 import { IngredientService } from '../services/ingredients';
 import { DeliveryType } from '../services/delivery-type';
 import { Chip } from '../common/chip/chip';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @Component({
   selector: 'app-recipes',
   standalone: true,
   imports: [
-    DifficultyHighlightDirective,
     Loader,
     HoverZoomDirective,
     Chip,
-    RouterLink
+    RouterLink,
+    InfiniteScrollModule
   ],
   templateUrl: './recipes.component.html',
 })
@@ -39,6 +40,9 @@ export class RecipesComponent implements OnInit {
   recipe = signal<Recipe[]>([]);
   loader = signal(false);
   searchText = signal('');
+
+  skip = 0;
+  limit = 5;
 
   selectedIngredients = toSignal(
     this.ingredientService.selectedIngredients$,
@@ -65,25 +69,48 @@ export class RecipesComponent implements OnInit {
 
   ngOnInit(): void {
     this.loader.set(true);
-    this.getRecipe();
+    this.getRecipe(0);
   }
 
-  getRecipe(): void {
-    this.recipeService.getRecipes().pipe(
-      map(res => res.recipes)
-    ).subscribe(recipes => {
-      this.loader.set(false);
-      this.recipe.set(recipes);
-    });
+  getRecipe(skip: number): void {
+    this.recipeService.getRecipes(skip)
+      .pipe(map(res => res.recipes))
+      .subscribe({
+        next: (recipes) => {
+
+          if (skip === 0) {            
+            this.recipe.set(recipes);
+          } else {
+            this.recipe.update(current => [...current, ...recipes]);
+          }
+
+          this.loader.set(false);
+        },
+        error: () => {
+          this.loader.set(false);
+        }
+      });
   }
 
-  handleCloseChip(ingredient:string) {
+  onScrollDown(): void {
+
+    this.skip += this.limit;
+
+    console.log('Loading page:', this.skip);
+
+    this.getRecipe(this.skip);
+  }
+
+  handleCloseChip(ingredient: string) {
     const updatedIngredients = this.selectedIngredients().filter(
       item => item !== ingredient
     );
 
     this.ingredientService.reset(updatedIngredients);
   }
+
+  modalScrollDistance = 2;
+  modalScrollThrottle = 200;
 
   resetFilters(): void {
     this.ingredientService.reset([]);

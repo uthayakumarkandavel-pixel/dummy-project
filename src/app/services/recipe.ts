@@ -9,9 +9,9 @@ export class RecipeService {
 
   constructor(private http: HttpClient) {}
 
-  getRecipes(): Observable<RecipeApiResponse> {
+  getRecipes(skip?:number): Observable<RecipeApiResponse> {
     return this.http.get<RecipeApiResponse>(
-      'https://dummyjson.com/recipes'
+      `https://dummyjson.com/recipes?limit=5&skip=${skip}&select=name,image`
     )
   }
   getSingleRecipe(id:string):Observable<Recipe>{
