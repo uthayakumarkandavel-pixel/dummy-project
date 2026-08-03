@@ -10,14 +10,13 @@ import { map } from 'rxjs/operators';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 import { Recipe } from '../../models/recipe.model';
-import { DifficultyHighlightDirective } from '../directives/difficulty-highlight';
 import { HoverZoomDirective } from '../directives/hover-zoom-button';
 import { RecipeService } from '../services/recipe';
 import { Loader } from '../common/loader/loader';
 import { IngredientService } from '../services/ingredients';
 import { DeliveryType } from '../services/delivery-type';
-import { Chip } from '../common/chip/chip';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { HeaderComponent } from './recipes-header/recipes-header';
 
 @Component({
   selector: 'app-recipes',
@@ -25,7 +24,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
   imports: [
     Loader,
     HoverZoomDirective,
-    Chip,
+    HeaderComponent,
     RouterLink,
     InfiniteScrollModule
   ],
@@ -43,6 +42,8 @@ export class RecipesComponent implements OnInit {
 
   skip = 0;
   limit = 5;
+  scrollDistance = 2;
+  scrollThrottle = 200;
 
   selectedIngredients = toSignal(
     this.ingredientService.selectedIngredients$,
@@ -93,11 +94,7 @@ export class RecipesComponent implements OnInit {
   }
 
   onScrollDown(): void {
-
     this.skip += this.limit;
-
-    console.log('Loading page:', this.skip);
-
     this.getRecipe(this.skip);
   }
 
@@ -108,9 +105,6 @@ export class RecipesComponent implements OnInit {
 
     this.ingredientService.reset(updatedIngredients);
   }
-
-  modalScrollDistance = 2;
-  modalScrollThrottle = 200;
 
   resetFilters(): void {
     this.ingredientService.reset([]);

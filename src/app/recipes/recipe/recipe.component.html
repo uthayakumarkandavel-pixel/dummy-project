@@ -1,4 +1,7 @@
-<div class="min-h-screen bg-gradient-to-br from-yellow-100 via-orange-50 to-red-100 py-6 px-4">
+<div class="min-h-screen bg-gradient-to-br from-yellow-100 via-orange-50 to-red-100">
+    <app-header [selectedIngredients]="selectedIngredients()" [selectedDeliveryType]="selectedDeliveryType()"
+        (closeChip)="handleCloseChip($event)" (reset)="resetFilters()">
+    </app-header>
     @if(loader()) {
     <app-loader></app-loader>
     }
@@ -44,7 +47,6 @@
                 </app-ingredient>
             </div>
         </div>
-        <app-selected-ingredients></app-selected-ingredients>
         <app-delivery-type />
 
         <div class="my-10 p-6 rounded-3xl bg-gradient-to-r from-orange-50 to-amber-50 border border-orange-200">

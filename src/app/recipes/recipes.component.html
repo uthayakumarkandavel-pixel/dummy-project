@@ -1,73 +1,7 @@
 <div class="min-h-screen bg-gradient-to-br from-yellow-100 via-orange-50 to-red-100">
-    <div class="bg-white border border-orange-200 p-5 mb-6">
-        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
-            <div>
-                <h1 class="text-4xl font-extrabold text-orange-700">
-                    Recipe Explorer
-                </h1>
-                <p class="text-gray-600 mt-1">
-                    Find delicious recipes based on your preferences
-                </p>
-            </div>
-            <div class="flex flex-col gap-2">
-                <span class="flex gap-2">
-                    <i class="pi pi-clock text-orange-600 py-2 text-2xl"></i>
-                    <p class="font-bold text-2xl text-orange-600">Ingredient Delivery Status</p>
-                </span>
-                <div class="flex flex-col sm:flex-row gap-3">
-                    <div class="flex items-center gap-2 bg-green-50 border border-green-200 rounded-full px-4 py-2">
-                        <i class="pi pi-truck text-green-600"></i>
-                        <span class="font-medium text-gray-700">
-                            Delivery:
-                        </span>
-                        @if(selectedDeliveryType()){
-                        <span class="text-green-700 font-semibold">
-                            {{ selectedDeliveryType() }}
-                        </span>
-                        } @else {
-                        <span class="text-gray-400">
-                            None
-                        </span>
-                        }
-                    </div>
-                    <div class="flex items-center gap-2 bg-orange-50 border border-orange-200 rounded-full px-4 py-2">
-                        <i class="pi pi-shopping-basket text-orange-600"></i>
-                        <span class="font-medium text-gray-700">
-                            Ingredients:
-                        </span>
-                        @if(selectedIngredients().length){
-                        <span class="text-orange-700 font-semibold">
-                            {{ selectedIngredients().length }} Selected
-                        </span>
-                        } @else {
-                        <span class="text-gray-400">
-                            None
-                        </span>
-                        }
-                    </div>
-                </div>
-            </div>
-        </div>
-        @if(selectedIngredients().length){
-        <div class="mt-4 pt-4 border-t border-orange-100 flex items-start justify-between gap-4">
-            <div class="flex flex-wrap items-center gap-2">
-                <span class="font-medium text-orange-700">
-                    Ingredients for Delivery:
-                </span>
-
-                @for(item of selectedIngredients(); track item){
-                <app-chip [chipItem]="item" (close)="handleCloseChip($event)">
-                </app-chip>
-                }
-            </div>
-
-            <button type="button" (click)="resetFilters()"
-                class="px-5 py-3 bg-orange-600 text-white rounded-full cursor-pointer hover:bg-orange-700 transition whitespace-nowrap">
-                Reset
-            </button>
-        </div>
-        }
-    </div>
+    <app-header [selectedIngredients]="selectedIngredients()" [selectedDeliveryType]="selectedDeliveryType()"
+        (closeChip)="handleCloseChip($event)" (reset)="resetFilters()">
+    </app-header>
     <div class="max-w-7xl mx-auto px-4 py-6">
         <div class="flex justify-center items-center gap-3 mb-8">
             <input type="text" placeholder="Search your recipe or cuisine here" [value]="searchText()"
